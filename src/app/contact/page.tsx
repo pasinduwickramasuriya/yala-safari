@@ -1,4 +1,5 @@
 'use client'
+import Header from '@/components/Header'
 import { useState } from 'react'
 
 export default function Contact() {
@@ -11,7 +12,8 @@ export default function Contact() {
     setFormData({ name: '', email: '', message: '' })
   }
 
-  return (
+  return (<>
+  <Header/>
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-semibold mb-6">Contact Us</h1>
       <p>Email: info@yalasafari.com | Phone: +94 123 456 789</p>
@@ -39,5 +41,6 @@ export default function Contact() {
         <button type="submit" className="btn w-full">Send Message</button>
       </form>
     </div>
+    </>
   )
 }

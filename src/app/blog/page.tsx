@@ -1,4 +1,5 @@
 import BlogCard from '@/components/BlogCard'
+import Header from '@/components/Header'
 import prisma from '@/lib/prisma'
 
 async function getBlogs() {
@@ -7,7 +8,8 @@ async function getBlogs() {
 
 export default async function Blog() {
   const blogs = await getBlogs()
-  return (
+  return (<>
+  <Header/>
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-semibold mb-6">Blog</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -16,5 +18,6 @@ export default async function Blog() {
         ))}
       </div>
     </div>
+    </>
   )
 }
