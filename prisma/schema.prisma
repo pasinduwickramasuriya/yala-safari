@@ -38,4 +38,21 @@ model User {
   role     String   @default("admin")
 }
 
+model HeroSection {
+  id        Int      @id @default(autoincrement())
+  imageUrl  String
+  title     String
+  subtitle  String
+}
+
+model CustomerReview {
+  id            Int      @id @default(autoincrement())
+  customerName  String
+  customerEmail String
+  description   String
+  imageUrl      String?
+  isApproved    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+}
+
 

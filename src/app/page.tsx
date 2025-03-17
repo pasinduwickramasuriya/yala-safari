@@ -1,143 +1,225 @@
-// import Header from "@/components/Header";
-// import PackageCard from "@/components/PackageCard";
-// import Image from "next/image";
 
-// export default function Home() {
+// import Header from '@/components/Header';
+// import Footer from '@/components/Footer';
+// import PackageCard from '@/components/PackageCard';
+// import HeroSlider from '@/components/HeroSlider';
+// import prisma from '@/lib/prisma';
+
+// async function fetchData() {
+//   const packages = await prisma.package.findMany();
+//   const heroSections = await prisma.heroSection.findMany();
+//   return { packages, heroSections };
+// }
+
+// export default async function Home() {
+//   const { packages, heroSections } = await fetchData();
+
 //   return (
-//     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-//       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-//         <Header/>
-//         <Image
-//           className="dark:invert"
-//           src="/next.svg"
-//           alt="Next.js logo"
-//           width={180}
-//           height={38}
-//           priority
-//         />
-//         <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-//           <li className="mb-2 tracking-[-.01em]">
-//             Get started by editing{" "}
-//             <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-//               src/app/page.tsx
-//             </code>
-//             .
-//           </li>
-//           <li className="tracking-[-.01em]">
-//             Save and see your changes instantly.
-//           </li>
-//         </ol>
-
-//         <div className="flex gap-4 items-center flex-col sm:flex-row">
-//           <a
-//             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-//             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             <Image
-//               className="dark:invert"
-//               src="/vercel.svg"
-//               alt="Vercel logomark"
-//               width={20}
-//               height={20}
-//             />
-//             Deploy now
-//           </a>
-//           <a
-//             className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-//             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             Read our docs
-//           </a>
-//         </div>
-//       </main>
-//       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-//         <a
-//           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-//           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <Image
-//             aria-hidden
-//             src="/file.svg"
-//             alt="File icon"
-//             width={16}
-//             height={16}
-//           />
-//           Learn
-//         </a>
-//         <a
-//           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-//           href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <Image
-//             aria-hidden
-//             src="/window.svg"
-//             alt="Window icon"
-//             width={16}
-//             height={16}
-//           />
-//           Examples
-//         </a>
-//         <a
-//           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-//           href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <Image
-//             aria-hidden
-//             src="/globe.svg"
-//             alt="Globe icon"
-//             width={16}
-//             height={16}
-//           />
-//           Go to nextjs.org →
-//         </a>
+//     <div className="min-h-screen flex flex-col">
+//       <Header />
+//       <main className="flex-grow">
+//         <HeroSlider heroSections={heroSections} />
         
-//       </footer>
+//         <section className="container mx-auto py-12">
+//           <h2 className="text-3xl font-semibold mb-6 text-center">Featured Packages</h2>
+//           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+//             {packages.slice(0, 3).map((pkg) => (
+//               <PackageCard key={pkg.id} pkg={pkg} />
+//             ))}
+//           </div>
+//         </section>
+//         <section className="bg-gray-100 py-12">
+//           <div className="container mx-auto text-center">
+//             <h2 className="text-3xl font-semibold mb-6">Why Choose Us</h2>
+//             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+//               <div className="p-4">
+//                 <h3 className="text-xl font-bold mb-2">Expert Guides</h3>
+//                 <p className="text-gray-700">
+//                   Our experienced guides ensure a safe and informative safari experience.
+//                 </p>
+//               </div>
+//               <div className="p-4">
+//                 <h3 className="text-xl font-bold mb-2">Comfortable Jeeps</h3>
+//                 <p className="text-gray-700">
+//                   Travel in comfort with our well-maintained, spacious safari jeeps.
+//                 </p>
+//               </div>
+//               <div className="p-4">
+//                 <h3 className="text-xl font-bold mb-2">Best Rates</h3>
+//                 <p className="text-gray-700">
+//                   Enjoy competitive pricing without compromising on quality.
+//                 </p>
+//               </div>
+//             </div>
+//           </div>
+//         </section>
+//       </main>
+//       <Footer />
 //     </div>
 //   );
 // }
 
 
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import PackageCard from '@/components/PackageCard'
-import prisma from '@/lib/prisma'
 
-async function getPackages() {
-  return await prisma.package.findMany()
+// import Header from '@/components/Header';
+// import Footer from '@/components/Footer';
+// import PackageCard from '@/components/PackageCard';
+// import HeroSlider from '@/components/HeroSlider';
+// import prisma from '@/lib/prisma';
+// import PhotoGallery from '@/components/PhotoGallery';
+
+// async function fetchData() {
+//   const packages = await prisma.package.findMany();
+//   const heroSections = await prisma.heroSection.findMany();
+//   return { packages, heroSections };
+// }
+
+// export default async function Home() {
+//   const { packages, heroSections } = await fetchData();
+
+//   return (
+//     <div className="min-h-screen flex flex-col bg-gray-50">
+//       {/* Header */}
+//       <Header />
+
+//       {/* Main Content */}
+//       <main className="flex-grow">
+//         {/* Hero Section */}
+//         <HeroSlider heroSections={heroSections} />
+
+//         {/* Featured Packages Sectioncontainer */}
+//         <section className=" mx-auto py-16 px-4 md:px-0 bg-black">
+//           <h2 className="text-4xl md:text-2xl font-extrabold text-center text-white mb-12 tracking-tight animate-fadeIn">
+//             Featured Safari Packages
+//           </h2>
+//           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+//             {packages.slice(0, 3).map((pkg) => (
+//               <PackageCard key={pkg.id} pkg={pkg} />
+//             ))}
+//           </div>
+//           <div className="text-center mt-12">
+//             <a
+//               href="/safari-packages"
+//               className="inline-block bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white px-8 py-3 rounded-full font-semibold shadow-lg transform hover:scale-105 transition-all duration-300"
+//             >
+//               View All Packages
+//             </a>
+//           </div>
+//         </section>
+
+    
+
+//         {/* Why Choose Us Section */}
+//         <section className="bg-gradient-to-b from-teal-50 to-white py-20">
+//           <div className="container mx-auto px-4 md:px-0 text-center">
+//             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-12 tracking-tight animate-fadeIn">
+//               Why Choose Yala Safari
+//             </h2>
+//             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+//               <div className="p-6 bg-white rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300">
+//                 <div className="text-green-600 mb-4">
+//                   <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 1.857h10M9 4a3 3 0 013-3h0a3 3 0 013 3m-6 0h6" />
+//                   </svg>
+//                 </div>
+//                 <h3 className="text-2xl font-bold text-gray-800 mb-3">Expert Guides</h3>
+//                 <p className="text-gray-600 leading-relaxed">
+//                   Our experienced guides ensure a safe and unforgettable safari adventure.
+//                 </p>
+//               </div>
+//               <div className="p-6 bg-white rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300">
+//                 <div className="text-green-600 mb-4">
+//                   <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17V7m0 10h6m-6 0a2 2 0 01-2-2V9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9z" />
+//                   </svg>
+//                 </div>
+//                 <h3 className="text-2xl font-bold text-gray-800 mb-3">Comfortable Jeeps</h3>
+//                 <p className="text-gray-600 leading-relaxed">
+//                   Travel in style with our well-maintained, spacious safari jeeps.
+//                 </p>
+//               </div>
+//               <div className="p-6 bg-white rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300">
+//                 <div className="text-green-600 mb-4">
+//                   <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2zm0 8c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" />
+//                   </svg>
+//                 </div>
+//                 <h3 className="text-2xl font-bold text-gray-800 mb-3">Best Rates</h3>
+//                 <p className="text-gray-600 leading-relaxed">
+//                   Enjoy premium experiences at competitive prices without compromise.
+//                 </p>
+//               </div>
+//             </div>
+//           </div>
+//         </section>
+//       </main>
+
+//       {/* Footer */}
+//       <Footer />
+//     </div>
+//   );
+// }
+
+
+
+
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import PackageCard from '@/components/PackageCard';
+import HeroSlider from '@/components/HeroSlider';
+import prisma from '@/lib/prisma';
+import PhotoGallery from '@/components/PhotoGallery';
+import WhyChooseUs from '@/components/WhyChooseUs';
+
+async function fetchData() {
+  const packages = await prisma.package.findMany();
+  const heroSections = await prisma.heroSection.findMany();
+  return { packages, heroSections };
 }
 
 export default async function Home() {
-  const packages = await getPackages()
+  const { packages, heroSections } = await fetchData();
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      {/* Header */}
       <Header />
+
+      {/* Main Content */}
       <main className="flex-grow">
-        <section className="hero bg-cover bg-center h-96 flex items-center justify-center text-white" style={{ backgroundImage: 'url(/images/safari-bg.jpg)' }}>
-          <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">Yala Safari Jeep Service</h1>
-            <a href="/safari-packages" className="btn">Explore Packages</a>
-          </div>
-        </section>
-        <section className="container mx-auto py-8">
-          <h2 className="text-3xl font-semibold mb-6">Featured Packages</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Hero Section */}
+        <HeroSlider heroSections={heroSections} />
+
+        {/* Featured Packages Section */}
+        <section className="mx-auto py-16 px-4 md:px-0 bg-black">
+          <h2 className="text-4xl md:text-2xl font-extrabold text-center text-white mb-12 tracking-tight animate-fadeIn">
+            Featured Safari Packages
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             {packages.slice(0, 3).map((pkg) => (
               <PackageCard key={pkg.id} pkg={pkg} />
             ))}
           </div>
+          <div className="text-center mt-12">
+            <a
+              href="/safari-packages"
+              className="inline-block bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white px-8 py-3 rounded-full font-semibold shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
+              View All Packages
+            </a>
+          </div>
         </section>
+
+        {/* Photo Gallery Section */}
+        
+        <PhotoGallery />
+      
+        {/* Why Choose Us Section */}
+        <WhyChooseUs />
       </main>
+
+      {/* Footer */}
       <Footer />
     </div>
-  )
+  );
 }

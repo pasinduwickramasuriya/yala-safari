@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('')
@@ -19,7 +21,8 @@ export default function AdminLogin() {
     else alert('Login failed')
   }
 
-  return (
+  return (<>
+  <Header/>
     <div className="flex items-center justify-center min-h-screen">
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md text-black">
         <h1 className="text-2xl mb-4">Admin Login</h1>
@@ -40,5 +43,6 @@ export default function AdminLogin() {
         <button type="submit" className="btn w-full">Login</button>
       </form>
     </div>
-  )
+    <Footer/>
+    </>)
 }

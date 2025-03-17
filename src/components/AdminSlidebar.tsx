@@ -29,6 +29,8 @@ export default function AdminSidebar() {
         <a href="/admin/dashboard" className="block hover:bg-gray-700 p-2 rounded">Dashboard</a>
         <a href="/admin/packages" className="block hover:bg-gray-700 p-2 rounded">Manage Packages</a>
         <a href="/admin/blog" className="block hover:bg-gray-700 p-2 rounded">Manage Blog</a>
+        <a href="/admin/herosection" className="block hover:bg-gray-700 p-2 rounded">Manage herosection</a>
+        <a href="/admin/customer-reviews" className="block hover:bg-gray-700 p-2 rounded">Manage reviews</a>
         <button
           onClick={handleLogout}
           className="block w-full text-left hover:bg-gray-700 p-2 rounded"
