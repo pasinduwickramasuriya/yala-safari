@@ -4,12 +4,17 @@ import Image from "next/image";
 import { Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-// Remove static generation flags
-// export const dynamic = "force-static";
-// export const dynamicParams = false;
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 async function getBlog(slug: string) {
-  return await prisma.blog.findUnique({ where: { slug } });
+  try {
+    return await prisma.blog.findUnique({ where: { slug } });
+  } catch (error) {
+    console.error('Error fetching blog:', error);
+    return null;
+  }
 }
 
 export async function generateMetadata({
@@ -85,20 +90,13 @@ export default async function BlogPost({
 
         {/* Content Section */}
         <section className="container mx-auto px-4 py-12 md:px-6">
-          {/* <Card className="max-w-3xl mx-auto bg-white dark:bg-black text-card-foreground rounded-xl shadow-md"> */}
           <CardContent className="p-6 md:p-8">
             <article className="prose prose-lg max-w-none text-foreground">
               <p className="leading-relaxed">{blog.content}</p>
             </article>
           </CardContent>
-          {/* </Card> */}
         </section>
       </main>
     </>
   );
-}
-
-export async function generateStaticParams() {
-  const blogs = await prisma.blog.findMany({ select: { slug: true } });
-  return blogs.map((blog) => ({ slug: blog.slug }));
 }
