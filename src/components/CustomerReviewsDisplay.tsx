@@ -19,7 +19,7 @@ export default function CustomerReviewsDisplay({ reviews }: CustomerReviewsDispl
       {reviews.map((review) => (
         <div
           key={review.id}
-          className="bg-black  rounded-xl shadow-md p-6 flex flex-col gap-4"
+          className=" rounded-xl  p-6 flex flex-col gap-4"
         >
           {review.imageUrl && (
             <div className="relative h-48 w-full">
@@ -31,15 +31,15 @@ export default function CustomerReviewsDisplay({ reviews }: CustomerReviewsDispl
               />
             </div>
           )}
-          <p className="text-gray-600 dark:text-gray-300 text-base">{review.description}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-muted-foreground text-base">{review.description}</p>
+          <p className="text-sm text-muted-foreground/80">
             - {review.customerName} ({review.customerEmail}) on{" "}
             {new Date(review.createdAt).toLocaleDateString()}
           </p>
         </div>
       ))}
       {reviews.length === 0 && (
-        <p className="text-gray-600 dark:text-gray-300 text-center col-span-full">
+        <p className="text-muted-foreground text-center col-span-full">
           No approved reviews yet.
         </p>
       )}

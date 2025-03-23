@@ -1,25 +1,3 @@
-// import prisma from '@/lib/prisma'
-// import AddBlogForm from '@/components/AddBlogForm'
-
-// async function getBlogs() {
-//   return await prisma.blog.findMany()
-// }
-
-// export default async function AdminBlog() {
-//   const blogs = await getBlogs()
-//   return (
-//     <div>
-//       <h1 className="text-3xl font-semibold mb-6">Manage Blog</h1>
-//       <ul className="mb-6">
-//         {blogs.map((blog) => (
-//           <li key={blog.id} className="p-2 border-b">{blog.title}</li>
-//         ))}
-//       </ul>
-//       <AddBlogForm />
-//     </div>
-//   )
-// }
-
 
 import prisma from '@/lib/prisma';
 import AddBlogForm from '@/components/AddBlogForm';

@@ -40,9 +40,8 @@ export default function HeroBlog({ heroSections }: HeroSliderProps) {
         {heroSections.map((hs, index) => (
           <div
             key={index}
-            className={`absolute h-full w-full transition-transform duration-500 ease-in-out ${
-              index === currentSlide ? 'translate-x-0' : 'translate-x-full'
-            }`}
+            className={`absolute h-full w-full transition-transform duration-500 ease-in-out ${index === currentSlide ? 'translate-x-0' : 'translate-x-full'
+              }`}
             style={{
               transform: `translateX(${(index - currentSlide) * 100}%)`,
             }}
@@ -89,9 +88,8 @@ export default function HeroBlog({ heroSections }: HeroSliderProps) {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-2 w-2 rounded-full transition-colors ${
-              index === currentSlide ? 'bg-white' : 'bg-white/50'
-            }`}
+            className={`h-2 w-2 rounded-full transition-colors ${index === currentSlide ? 'bg-white' : 'bg-white/50'
+              }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}

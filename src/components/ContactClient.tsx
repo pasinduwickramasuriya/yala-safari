@@ -4,6 +4,11 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { useState, useEffect } from "react";
 import HeroContact from "./HeroContact";
+import Image from "next/image"; // Added for WhatsApp icon optimization
+import { Button } from "@/components/ui/button"; // Shadcn Button
+import { Label } from "@/components/ui/label"; // Shadcn Label
+import { Textarea } from "@/components/ui/textarea"; // Shadcn Textarea
+import { cn } from "@/lib/utils"; // Shadcn utility for className merging
 
 interface ContactData {
   name: string;
@@ -17,6 +22,7 @@ type Notification = {
 } | null;
 
 interface ContactClientProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   heroSections: any[]; // Replace with your actual HeroSection type
 }
 
@@ -38,7 +44,7 @@ export default function ContactClient({ heroSections }: ContactClientProps) {
       if (res.ok) {
         setNotification({
           type: "success",
-          message: "Thank you for your message! We’ll get back to you soon.",
+          message: "Thank you for your message! We'll get back to you soon.",
         });
         setFormData({ name: "", email: "", message: "" });
       } else {
@@ -69,31 +75,31 @@ export default function ContactClient({ heroSections }: ContactClientProps) {
     <>
       <Header />
       <HeroContact heroSections={heroSections} />
-      <main className="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen">
+      <main className="bg-background text-foreground min-h-screen">
         {/* Contact Hero */}
-        <section className="bg-black text-white py-16">
-          <div className="container mx-auto px-4 md:px-0 text-center">
-            <h1 className="text-4xl md:text-2xl font-extrabold mb-6 animate-fadeIn tracking-tight">
+        <section className="bg-background text-foreground py-16">
+          <div className="container mx-auto px-4 md:px-6 text-center">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6 animate-fadeIn tracking-tight">
               Contact Us
             </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               Reach out to us for inquiries, support, or to plan your next adventure!
             </p>
           </div>
         </section>
 
         {/* Contact Info and Form */}
-        <section className="py-16">
-          <div className="container mx-auto px-4 md:px-0">
+        <section className="py-16 bg-background/95 dark:bg-background/95">
+          <div className="container mx-auto px-4 md:px-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               {/* Contact Info */}
               <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-green-700 dark:text-green-500 mb-4">
+                <h2 className="text-3xl font-bold text-green-600 dark:text-green-500 mb-4">
                   Get in Touch
                 </h2>
                 <div className="flex items-center space-x-4">
                   <svg
-                    className="w-6 h-6 text-green-600"
+                    className="w-6 h-6 text-green-600 dark:text-green-500"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -108,14 +114,14 @@ export default function ContactClient({ heroSections }: ContactClientProps) {
                   </svg>
                   <a
                     href="mailto:info@yalasafari.com"
-                    className="text-gray-700 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-500 transition-colors duration-300"
+                    className="text-muted-foreground hover:text-green-600 dark:hover:text-green-500 transition-colors duration-300"
                   >
-                    info@yalasafari.com
+                    pasindusadanjana17@gmail.com
                   </a>
                 </div>
                 <div className="flex items-center space-x-4">
                   <svg
-                    className="w-6 h-6 text-green-600"
+                    className="w-6 h-6 text-green-600 dark:text-green-500"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -126,116 +132,128 @@ export default function ContactClient({ heroSections }: ContactClientProps) {
                     href="https://wa.me/94123456789"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-700 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-500 transition-colors duration-300 flex items-center"
+                    className="text-muted-foreground hover:text-green-600 dark:hover:text-green-500 transition-colors duration-300 flex items-center"
                   >
-                    <span>+94 123 456 789</span>
-                    <img
+                    <span>+94 778 158 004</span>
+                    <Image
                       src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
                       alt="WhatsApp"
-                      className="w-6 h-6 ml-2"
+                      width={24}
+                      height={24}
+                      className="ml-2"
                     />
                   </a>
                 </div>
                 {/* Map with Location Icon */}
                 <div className="mt-6">
-                  <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
                     Our Location
                   </h3>
-                  <div className="relative h-64 rounded-lg overflow-hidden shadow-md">
+                  <div className="relative h-64 rounded-lg overflow-hidden shadow-md border border-border/50">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3968.3666666666666!2d81.3013!3d6.2661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTUnNTcuOCJOIDgxwrAxOCcwNC41IkU!5e0!3m2!1sen!2slk!4v1698765432100!5m2!1sen!2slk"
+                      // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3968.3666666666666!2d81.3013!3d6.2661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTUnNTcuOCJOIDgxwrAxOCcwNC41IkU!5e0!3m2!1sen!2slk!4v1698765432100!5m2!1sen!2slk"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3968.3666666666666!2d81.30111451350646!3d6.265797090893244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTUnNTYuOSJOIDgxwrAxOCcwNC4wIkU!5e0!3m2!1sen!2slk!4v1698765432100!5m2!1sen!2slk"
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
                       allowFullScreen
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
-                    ></iframe>
+                    />
                   </div>
                 </div>
               </div>
 
               {/* Contact Form */}
-              <div className={`relative ${notification ? "blur-sm" : ""}`}>
-                <form
-                  onSubmit={handleSubmit}
-                  className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg"
-                >
-                  <h2 className="text-2xl font-bold text-green-700 dark:text-green-500 mb-6">
+              <div className="max-w-3xl mx-auto">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <h2 className="text-2xl font-bold text-foreground mb-6">
                     Send Us a Message
                   </h2>
-                  <div className="mb-5">
-                    <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">
+                  {/* Name */}
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-muted-foreground">
                       Name
-                    </label>
+                    </Label>
                     <input
+                      id="name"
                       type="text"
                       placeholder="Your Name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                       required
+                      className={cn(
+                        "bg-background/80 dark:bg-background/80 border-border text-foreground placeholder-muted-foreground/50",
+                        "focus:ring-primary focus:border-primary rounded-lg w-full px-4 py-2"
+                      )}
                     />
                   </div>
-                  <div className="mb-5">
-                    <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">
+                  {/* Email */}
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-muted-foreground">
                       Email
-                    </label>
+                    </Label>
                     <input
+                      id="email"
                       type="email"
                       placeholder="Your Email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                       required
+                      className={cn(
+                        "bg-background/80 dark:bg-background/80 border-border text-foreground placeholder-muted-foreground/50",
+                        "focus:ring-primary focus:border-primary rounded-lg w-full px-4 py-2"
+                      )}
                     />
                   </div>
-                  <div className="mb-5">
-                    <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">
+                  {/* Message */}
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="text-muted-foreground">
                       Message
-                    </label>
-                    <textarea
+                    </Label>
+                    <Textarea
+                      id="message"
                       placeholder="Your Message"
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 resize-y min-h-[120px]"
                       required
+                      className={cn(
+                        "bg-background/80 dark:bg-background/80 border-border text-foreground placeholder-muted-foreground/50",
+                        "focus:ring-primary focus:border-primary rounded-lg min-h-[120px]"
+                      )}
                     />
                   </div>
-                  <button
-                    type="submit"
-                    className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-3 rounded-lg font-semibold shadow-md hover:from-green-700 hover:to-teal-700 transition-all duration-300"
-                  >
-                    Send Message
-                  </button>
+                  {/* Submit Button */}
+                  <div className="flex flex-col gap-4">
+                    <Button
+                      type="submit"
+                      className={cn(
+                        "w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 rounded-full",
+                        "transition-all"
+                      )}
+                    >
+                      Send Message
+                    </Button>
+                  </div>
+                  {/* Notification */}
+                  {notification && (
+                    <div
+                      className={cn(
+                        "mt-6 p-4 rounded-lg text-center text-foreground",
+                        notification.type === "error"
+                          ? "bg-destructive/20 dark:bg-destructive/20 text-destructive-foreground"
+                          : "bg-success/20 dark:bg-success/20 text-success-foreground"
+                      )}
+                    >
+                      {notification.message}
+                    </div>
+                  )}
                 </form>
               </div>
             </div>
           </div>
         </section>
       </main>
-      <Footer />
-
-      {/* Notification Modal */}
-      {notification && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
-          <div
-            className={`p-6 rounded-lg shadow-xl max-w-md w-full mx-4 transform transition-all duration-500 animate-fadeIn ${
-              notification.type === "success" ? "bg-black text-white" : "bg-red-600 text-white"
-            }`}
-          >
-            <p className="text-lg font-semibold text-center">{notification.message}</p>
-            <div className="mt-4 flex justify-center">
-              <button
-                onClick={() => setNotification(null)}
-                className="bg-black text-green-700 dark:text-green-500 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
-              >
-                OK
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

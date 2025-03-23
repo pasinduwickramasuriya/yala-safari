@@ -1,6 +1,12 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
-import { v2 as cloudinary } from 'cloudinary'; // Fixed import
+import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
+import { v2 as cloudinary } from "cloudinary";
+
+// Define Cloudinary upload response type
+interface CloudinaryUploadResponse {
+  secure_url: string;
+  [key: string]: unknown; // Optional: allows additional properties
+}
 
 // Configure Cloudinary
 cloudinary.config({
@@ -10,45 +16,95 @@ cloudinary.config({
 });
 
 // PUT: Update a hero section
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
-  const formData = await request.formData();
-  const title = formData.get('title') as string;
-  const subtitle = formData.get('subtitle') as string;
-  const file = formData.get('file') as File | null;
+export async function PUT(request: NextRequest) {
+  try {
+    // Manually extract id from the URL
+    const urlParts = request.url.split("/");
+    const id = parseInt(urlParts[urlParts.length - 1]);
+    if (isNaN(id)) {
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+    }
 
-  let imageUrl;
-  if (file) {
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const uploadResponse = await new Promise((resolve, reject) => {
-      cloudinary.uploader.upload_stream( // Changed to cloudinary.uploader for consistency
-        { folder: 'hero_sections' },
-        (error, result) => {
-          if (error) reject(error);
-          else resolve(result);
+    const formData = await request.formData();
+    const title = formData.get("title") as string | null;
+    const subtitle = formData.get("subtitle") as string | null;
+    const file = formData.get("file") as File | null;
+
+    // Validation
+    if (!title || !subtitle) {
+      return NextResponse.json(
+        { error: "Title and subtitle are required" },
+        { status: 400 }
+      );
+    }
+
+    let imageUrl: string | undefined;
+    if (file) {
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      const uploadResponse = await new Promise<CloudinaryUploadResponse>(
+        (resolve, reject) => {
+          cloudinary.uploader
+            .upload_stream(
+              { folder: "hero_sections", resource_type: "image" },
+              (error, result) => {
+                if (error) reject(error);
+                else resolve(result as CloudinaryUploadResponse);
+              }
+            )
+            .end(buffer);
         }
-      ).end(buffer);
+      );
+
+      imageUrl = uploadResponse.secure_url;
+    }
+
+    const updateData: { title: string; subtitle: string; imageUrl?: string } = {
+      title,
+      subtitle,
+    };
+    if (imageUrl) updateData.imageUrl = imageUrl;
+
+    const heroSection = await prisma.heroSection.update({
+      where: { id },
+      data: updateData,
     });
-    imageUrl = (uploadResponse as any).secure_url;
+
+    return NextResponse.json(heroSection, { status: 200 });
+  } catch (error: unknown) {
+    console.error("Error updating hero section:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    return NextResponse.json(
+      { error: "Failed to update hero section", details: errorMessage },
+      { status: 500 }
+    );
   }
-
-  const updateData: any = { title, subtitle };
-  if (imageUrl) updateData.imageUrl = imageUrl;
-
-  const heroSection = await prisma.heroSection.update({
-    where: { id },
-    data: updateData,
-  });
-
-  return NextResponse.json(heroSection);
 }
 
 // DELETE: Delete a hero section
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
-  await prisma.heroSection.delete({
-    where: { id },
-  });
-  return NextResponse.json({ message: 'Deleted successfully' });
+export async function DELETE(request: NextRequest) {
+  try {
+    // Manually extract id from the URL
+    const urlParts = request.url.split("/");
+    const id = parseInt(urlParts[urlParts.length - 1]);
+    if (isNaN(id)) {
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+    }
+
+    await prisma.heroSection.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ message: "Deleted successfully" }, { status: 200 });
+  } catch (error: unknown) {
+    console.error("Error deleting hero section:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    return NextResponse.json(
+      { error: "Failed to delete hero section", details: errorMessage },
+      { status: 500 }
+    );
+  }
 }

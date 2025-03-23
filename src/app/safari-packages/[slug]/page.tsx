@@ -1,224 +1,7 @@
-// import prisma from '@/lib/prisma';
-// import Header from '@/components/Header';
-// import { notFound } from 'next/navigation';
-
-// async function getPackage(slug: string) {
-//   const pkg = await prisma.package.findUnique({
-//     where: { slug },
-//   });
-//   if (!pkg) {
-//     notFound(); // Show 404 if package not found
-//   }
-//   return pkg;
-// }
-
-// export default async function PackageDetailPage({ params }: { params: { slug: string } }) {
-//   const pkg = await getPackage(params.slug);
-//   return (
-//     <>
-//       <Header />
-//       <div className="container mx-auto py-8">
-//         <h1 className="text-3xl font-semibold mb-4">{pkg.name}</h1>
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//           <div>
-//             {pkg.imageUrl && (
-//               <img
-//                 src={pkg.imageUrl}
-//                 alt={pkg.name}
-//                 className="w-full h-64 object-cover rounded-lg"
-//               />
-//             )}
-//           </div>
-//           <div>
-//             <p className="text-lg mb-4">{pkg.description}</p>
-//             <p className="text-xl font-bold mb-4">Price: ${pkg.price}</p>
-//             <a
-//               href="/contact"
-//               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-//             >
-//               Book Now
-//             </a>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-
-
-
-// import prisma from '@/lib/prisma';
-// import Header from '@/components/Header';
-// import BookingForm from '@/components/BookingForm';
-// import { notFound } from 'next/navigation';
-// import Footer from '@/components/Footer';
-
-// async function getPackage(slug: string) {
-//   const pkg = await prisma.package.findUnique({
-//     where: { slug },
-//   });
-//   if (!pkg) {
-//     notFound();
-//   }
-//   return pkg;
-// }
-
-// export default async function PackageDetailPage({ params }: { params: { slug: string } }) {
-//   const pkg = await getPackage(params.slug);
-//   return (
-//     <>
-//       <Header />
-//       <div className="container mx-auto py-8">
-//         <h1 className="text-3xl font-semibold mb-4">{pkg.name}</h1>
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//           <div>
-//             {pkg.imageUrl && (
-//               <img
-//                 src={pkg.imageUrl}
-//                 alt={pkg.name}
-//                 className="w-full h-64 object-cover rounded-lg"
-//               />
-//             )}
-//           </div>
-//           <div>
-//             <p className="text-lg mb-4">{pkg.description}</p>
-//             <p className="text-xl font-bold mb-4">Price: ${pkg.price}</p>
-//           </div>
-//         </div>
-//         <div className="mt-8">
-//           <BookingForm tourPackage={pkg.name} />
-//         </div>
-//       </div>
-//       <Footer/>
-//     </>
-//   );
-// }
-
-
-// import prisma from "@/lib/prisma";
-// import Header from "@/components/Header";
-// import BookingForm from "@/components/BookingForm";
-// import { notFound } from "next/navigation";
-// import Footer from "@/components/Footer";
-// import Image from "next/image";
-
-// // Fetch package data server-side
-// async function getPackage(slug: string) {
-//   const pkg = await prisma.package.findUnique({
-//     where: { slug },
-//   });
-//   if (!pkg) {
-//     notFound();
-//   }
-//   return pkg;
-// }
-
-// export default async function PackageDetailPage({ params }: { params: { slug: string } }) {
-//   const pkg = await getPackage(params.slug);
-
-//   return (
-//     <>
-//       <Header />
-//       <main className="bg-gray-50 dark:bg-gray-950 min-h-screen">
-//         {/* Hero Section */}
-//         <section className="relative h-[50vh] w-full">
-//           <Image
-//             src={pkg.imageUrl || "/images/placeholder.jpg"} // Fallback image if none provided
-//             alt={pkg.name}
-//             fill
-//             className="object-cover"
-//             sizes="100vw"
-//             priority
-//           />
-//           {/* Gradient Overlay */}
-//           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent"></div>
-//           {/* Package Name */}
-//           <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 text-white">
-//             <h1 className="text-3xl md:text-5xl font-bold leading-tight max-w-3xl animate-fadeIn">
-//               {pkg.name}
-//             </h1>
-//           </div>
-//         </section>
-
-//         {/* Details Section */}
-//         <section className="container mx-auto px-4 md:px-0 py-12">
-//           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-//             {/* Left Column: Image */}
-//             <div className="relative h-80 md:h-[450px] rounded-xl overflow-hidden shadow-lg">
-//               <Image
-//                 src={pkg.imageUrl || "/images/placeholder.jpg"}
-//                 alt={pkg.name}
-//                 fill
-//                 className="object-cover transition-transform duration-500 hover:scale-105"
-//                 sizes="(max-width: 768px) 100vw, 50vw"
-//               />
-//             </div>
-
-//             {/* Right Column: Details */}
-//             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6 md:p-8 flex flex-col">
-//               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">
-//                 {pkg.name}
-//               </h2>
-//               <p className="text-gray-600 dark:text-gray-300 text-base md:text-lg leading-relaxed mb-6">
-//                 {pkg.description}
-//               </p>
-//               <div className="flex items-center mb-6">
-//                 <span className="text-xl md:text-2xl font-bold text-green-600 dark:text-green-500">
-//                   ${pkg.price}
-//                 </span>
-//                 <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">
-//                   per person
-//                 </span>
-//               </div>
-//               {/* Optional Highlights (if your schema supports it) */}
-//               {/* <ul className="text-gray-700 dark:text-gray-200 mb-6 space-y-2">
-//                 <li className="flex items-center">
-//                   <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-//                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-//                   </svg>
-//                   Duration: 3 Days
-//                 </li>
-//                 <li className="flex items-center">
-//                   <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-//                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-//                   </svg>
-//                   Includes: Safari Tour, Meals
-//                 </li>
-//               </ul> */}
-//             </div>
-//           </div>
-
-//           {/* Booking Form Section */}
-//           <div className="max-w-5xl mx-auto mt-12">
-//             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6 md:p-8">
-//               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-6">
-//                 Book This Package
-//               </h3>
-//               <BookingForm tourPackage={pkg.name} />
-//             </div>
-//           </div>
-//         </section>
-//       </main>
-//       <Footer />
-//     </>
-//   );
-// }
-
-// // Optional: Generate static params for dynamic routes (if using static generation)
-// export async function generateStaticParams() {
-//   const packages = await prisma.package.findMany({ select: { slug: true } });
-//   return packages.map((pkg) => ({ slug: pkg.slug }));
-// }
-
-
-
-
-
 import prisma from "@/lib/prisma";
 import Header from "@/components/Header";
 import BookingForm from "@/components/BookingForm";
 import { notFound } from "next/navigation";
-import Footer from "@/components/Footer";
 import Image from "next/image";
 
 // Fetch package data server-side
@@ -245,7 +28,7 @@ export default async function PackageDetailPage({ params }: { params: { slug: st
   return (
     <>
       <Header />
-      <main className="bg-gray-50 dark:bg-gray-950 min-h-screen">
+      <main className="bg-background min-h-screen">
         {/* Hero Section */}
         <section className="relative h-[50vh] w-full">
           <Image
@@ -259,7 +42,7 @@ export default async function PackageDetailPage({ params }: { params: { slug: st
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent"></div>
           {/* Package Name */}
-          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 text-white">
+          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 text-foreground">
             <h1 className="text-3xl md:text-5xl font-bold leading-tight max-w-3xl animate-fadeIn">
               {pkg.name}
             </h1>
@@ -267,10 +50,10 @@ export default async function PackageDetailPage({ params }: { params: { slug: st
         </section>
 
         {/* Details Section */}
-        <section className="container mx-auto px-4 md:px-0 py-12">
+        <section className="container mx-auto px-4 md:px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Left Column: Image */}
-            <div className="relative h-80 md:h-[450px] rounded-xl overflow-hidden shadow-lg">
+            <div className="relative h-80 md:h-[450px] rounded-xl overflow-hidden ">
               <Image
                 src={pkg.imageUrl || "/images/placeholder.jpg"}
                 alt={pkg.name}
@@ -281,12 +64,12 @@ export default async function PackageDetailPage({ params }: { params: { slug: st
             </div>
 
             {/* Right Column: Details */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6 md:p-8 flex flex-col">
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">
+            <div className=" rounded-xl  p-6 md:p-8 flex flex-col ">
+              <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
                 {pkg.name}
               </h2>
               {/* Description as Bullet Points */}
-              <ul className="text-gray-600 dark:text-gray-300 text-base md:text-lg leading-relaxed mb-6 space-y-3">
+              <ul className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6 space-y-3">
                 {descriptionPoints.map((point, index) => (
                   <li key={index} className="flex items-start">
                     <svg
@@ -308,7 +91,7 @@ export default async function PackageDetailPage({ params }: { params: { slug: st
                 <span className="text-xl md:text-2xl font-bold text-green-600 dark:text-green-500">
                   ${pkg.price}
                 </span>
-                <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">
+                <span className="text-sm text-muted-foreground ml-2">
                   per person
                 </span>
               </div>
@@ -317,8 +100,8 @@ export default async function PackageDetailPage({ params }: { params: { slug: st
 
           {/* Booking Form Section */}
           <div className="max-w-5xl mx-auto mt-12">
-            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6 md:p-8">
-              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+            <div className="rounded-xl p-6 md:p-8">
+              <h3 className="text-xl md:text-2xl font-semibold text-foreground text-center mb-6">
                 Book This Package
               </h3>
               <BookingForm tourPackage={pkg.name} />
@@ -326,7 +109,6 @@ export default async function PackageDetailPage({ params }: { params: { slug: st
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

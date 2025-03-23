@@ -1,83 +1,3 @@
-// 'use client';
-
-// import Slider from 'react-slick';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
-
-// interface HeroSection {
-//   imageUrl: string;
-//   title: string;
-//   subtitle: string;
-// }
-
-// interface HeroSliderProps {
-//   heroSections: HeroSection[];
-// }
-
-// const settings = {
-//   dots: true,
-//   infinite: true,
-//   speed: 800, // Smooth transition speed
-//   slidesToShow: 1,
-//   slidesToScroll: 1,
-//   autoplay: true,
-//   autoplaySpeed: 4000, // Slightly longer interval for readability
-//   arrows: false, // Remove arrows for cleaner UI (optional: set to true if needed)
-//   fade: true, // Fade effect for elegant transitions
-//   pauseOnHover: true, // Pause on hover for user control
-//   customPaging: () => (
-//     <div className="w-3 h-3 bg-white rounded-full opacity-50 hover:opacity-100 transition-opacity" />
-//   ), // Custom dot styling
-// };
-
-// export default function HeroSlider({ heroSections }: HeroSliderProps) {
-//   return (
-//     <section className="hero relative overflow-hidden">
-//       <Slider {...settings} className="h-[calc(100vh-4rem)] md:h-[80vh]">
-//         {heroSections.map((hs, index) => (
-//           <div key={index} className="relative h-full">
-//             <img
-//               src={hs.imageUrl}
-//               alt={hs.title}
-//               className="w-full h-full object-cover brightness-75" // Slightly darken for text contrast
-//               loading="lazy" // Optimize loading
-//             />
-//             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent flex items-center justify-center">
-//               <div className="text-center text-white px-4 md:px-8 max-w-3xl animate-fadeIn">
-//                 <h1 className="text-3xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">
-//                   {hs.title}
-//                 </h1>
-//                 <p className="text-lg md:text-2xl mb-6 drop-shadow-md">
-//                   {hs.subtitle}
-//                 </p>
-//                 <a
-//                   href="/safari-packages"
-//                   className="inline-block bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-full font-semibold shadow-lg transform hover:scale-105 transition-all duration-300"
-//                 >
-//                   Explore Packages
-//                 </a>
-//               </div>
-//             </div>
-//           </div>
-//         ))}
-//       </Slider>
-//     </section>
-//   );
-// }
-
-// // Optional: Add this to your global CSS (e.g., globals.css) for the fade-in animation
-// /*
-// @keyframes fadeIn {
-//   from { opacity: 0; transform: translateY(20px); }
-//   to { opacity: 1; transform: translateY(0); }
-// }
-// .animate-fadeIn {
-//   animation: fadeIn 1s ease-out forwards;
-// }
-// */
-
-
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -120,9 +40,8 @@ export default function HeroSlider({ heroSections }: HeroSliderProps) {
         {heroSections.map((hs, index) => (
           <div
             key={index}
-            className={`absolute h-full w-full transition-transform duration-500 ease-in-out ${
-              index === currentSlide ? 'translate-x-0' : 'translate-x-full'
-            }`}
+            className={`absolute h-full w-full transition-transform duration-500 ease-in-out ${index === currentSlide ? 'translate-x-0' : 'translate-x-full'
+              }`}
             style={{
               transform: `translateX(${(index - currentSlide) * 100}%)`,
             }}
@@ -168,9 +87,8 @@ export default function HeroSlider({ heroSections }: HeroSliderProps) {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-2 w-2 rounded-full transition-colors ${
-              index === currentSlide ? 'bg-white' : 'bg-white/50'
-            }`}
+            className={`h-2 w-2 rounded-full transition-colors ${index === currentSlide ? 'bg-white' : 'bg-white/50'
+              }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
