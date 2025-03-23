@@ -4,8 +4,9 @@ import Image from "next/image";
 import { Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export const dynamic = "force-static";
-export const dynamicParams = false;
+// Remove static generation flags
+// export const dynamic = "force-static";
+// export const dynamicParams = false;
 
 async function getBlog(slug: string) {
   return await prisma.blog.findUnique({ where: { slug } });
@@ -43,7 +44,7 @@ export default async function BlogPost({
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Sorry, we couldn’t find the blog post you’re looking for.
+                Sorry, we couldn't find the blog post you're looking for.
               </p>
             </CardContent>
           </Card>

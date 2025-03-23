@@ -4,6 +4,8 @@ import Header from '@/components/Header'
 import HeroBlog from '@/components/HeroBlog'
 import prisma from '@/lib/prisma'
 
+export const dynamic = 'force-dynamic'
+
 async function getBlogs() {
   return await prisma.blog.findMany({ orderBy: { createdAt: 'desc' } })
 }
