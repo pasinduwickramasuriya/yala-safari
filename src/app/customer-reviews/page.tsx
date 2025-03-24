@@ -50,3 +50,6 @@ export default async function CustomerReviewsPage() {
     </>
   );
 }
+
+export const dynamic = 'force-dynamic'
+export const revalidate = 0

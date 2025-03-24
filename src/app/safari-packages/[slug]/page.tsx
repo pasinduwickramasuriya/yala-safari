@@ -4,15 +4,24 @@ import BookingForm from "@/components/BookingForm";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 // Fetch package data server-side
 async function getPackage(slug: string) {
-  const pkg = await prisma.package.findUnique({
-    where: { slug },
-  });
-  if (!pkg) {
+  try {
+    const pkg = await prisma.package.findUnique({
+      where: { slug },
+    });
+    if (!pkg) {
+      notFound();
+    }
+    return pkg;
+  } catch (error) {
+    console.error('Error fetching package:', error);
     notFound();
   }
-  return pkg;
 }
 
 export default async function PackageDetailPage({ params }: { params: { slug: string } }) {
@@ -50,7 +59,7 @@ export default async function PackageDetailPage({ params }: { params: { slug: st
         </section>
 
         {/* Details Section */}
-        <section className="container mx-auto px-4 md:px-6 py-12">
+        <section className="container mx-auto py-12 px-4 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Left Column: Image */}
             <div className="relative h-80 md:h-[450px] rounded-xl overflow-hidden ">
@@ -64,7 +73,7 @@ export default async function PackageDetailPage({ params }: { params: { slug: st
             </div>
 
             {/* Right Column: Details */}
-            <div className=" rounded-xl  p-6 md:p-8 flex flex-col ">
+            <div className="rounded-xl  p-6 md:p-8 flex flex-col ">
               <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
                 {pkg.name}
               </h2>
@@ -111,10 +120,4 @@ export default async function PackageDetailPage({ params }: { params: { slug: st
       </main>
     </>
   );
-}
-
-// Optional: Generate static params for dynamic routes (if using static generation)
-export async function generateStaticParams() {
-  const packages = await prisma.package.findMany({ select: { slug: true } });
-  return packages.map((pkg) => ({ slug: pkg.slug }));
 }

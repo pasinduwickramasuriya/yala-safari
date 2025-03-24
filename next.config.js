@@ -21,7 +21,18 @@ const nextConfig = {
                 pathname: '/**', // Allow all paths under this hostname
             },
         ],
+        domains: ['res.cloudinary.com'],
     },
+    experimental: {
+        serverComponentsExternalPackages: ['@prisma/client', 'bcrypt']
+    },
+    output: 'standalone',
+    serverRuntimeConfig: {
+        prisma: {
+            connectionLimit: 5,
+            pool: true
+        }
+    }
 };
 
 module.exports = nextConfig; 

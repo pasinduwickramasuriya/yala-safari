@@ -16,6 +16,9 @@ async function fetchData() {
   }
 }
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function About() {
   const { heroSections } = await fetchData();
   return (

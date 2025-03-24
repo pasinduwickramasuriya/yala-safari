@@ -10,6 +10,10 @@ import Link from "next/link";
 import GallerySection from "@/components/GallerySection";
 import ReviewsSection from "@/components/ReviewSection";
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 async function fetchData() {
   const packages = await prisma.package.findMany();
   const heroSections = await prisma.heroSection.findMany();

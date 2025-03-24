@@ -15,27 +15,34 @@
 //   .finally(() => prisma.$disconnect())
 
 
-import prisma from '../src/lib/prisma'; // Corrected path: prisma/ -> root -> src/lib/
-import * as bcrypt from 'bcrypt'; // Namespace import for bcrypt
+import { PrismaClient } from '@prisma/client'
+import * as bcrypt from 'bcrypt'
 
-async function seed() {
-  const hashedPassword = await bcrypt.hash('admin123', 10);
-  await prisma.user.create({
-    data: {
-      email: 'pasindusadanjana17@gmail.com',
-      password: hashedPassword,
-      role: 'admin',
-    },
-  });
-  console.log('Admin user created');
+const prisma = new PrismaClient()
+
+async function main() {
+  const hashedPassword = await bcrypt.hash('admin123', 10)
+  
+  try {
+    const user = await prisma.user.create({
+      data: {
+        email: 'admin@yalasafari.com',
+        password: hashedPassword,
+        role: 'admin'
+      }
+    })
+    console.log('Created admin user:', user)
+  } catch (error) {
+    console.error('Error:', error)
+  }
 }
 
-seed()
-  .catch((e) => {
-    console.error('Error seeding database:', e);
-    process.exit(1);
+main()
+  .then(async () => {
+    await prisma.$disconnect()
   })
-  .finally(async () => {
-    await prisma.$disconnect();
-    console.log('Disconnected from database');
-  });
+  .catch(async (e) => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })

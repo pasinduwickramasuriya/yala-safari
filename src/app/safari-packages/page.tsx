@@ -3,8 +3,11 @@ import HeroPackage from '@/components/HeroPackage';
 import PackageCard from '@/components/PackageCard'
 import prisma from '@/lib/prisma'
 
-async function fetchData() {
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
+async function fetchData() {
   const heroSections = await prisma.heroSection.findMany();
   return { heroSections };
 }
@@ -17,7 +20,6 @@ export default async function SafariPackages() {
   const { heroSections } = await fetchData();
   const packages = await getPackages()
   return (<>
-
     <Header />
     <HeroPackage heroSections={heroSections} />
     <div className="container mx-auto py-8">
