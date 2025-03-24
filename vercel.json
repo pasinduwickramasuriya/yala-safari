@@ -4,11 +4,17 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "regions": ["sin1"],
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
   "env": {
     "DATABASE_URL": "postgresql://postgres.yvmisybistrnzyciorus:postgreSQL@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres",
     "DIRECT_URL": "postgresql://postgres.yvmisybistrnzyciorus:postgreSQL@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres",
     "NEXTAUTH_SECRET": "7FWb80mLe1q/pUvrXjzQc5RuZNaOBpocM0tRnb2lQkY=",
-    "NEXTAUTH_URL": "${VERCEL_URL}",
+    "NEXTAUTH_URL": "https://yala-safari.vercel.app",
     "EMAIL_USER": "pasindusadanjana17@gmail.com",
     "EMAIL_PASS": "gtef oxtr lwhn ylfl"
   }
