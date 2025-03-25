@@ -17,14 +17,14 @@ async function main() {
         // Delete existing admin user if exists
         await prisma.user.deleteMany({
             where: {
-                email: 'admin@yalasafari.com'
+                email: 'pasindusadanjana17@gmail.com'
             }
         })
 
         // Create new admin user
         const admin = await prisma.user.create({
             data: {
-                email: 'admin@yalasafari.com',
+                email: 'pasindusadanjana17@gmail.com',
                 password: hashedPassword,
                 role: 'admin'
             }
