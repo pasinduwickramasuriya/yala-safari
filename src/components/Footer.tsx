@@ -143,7 +143,7 @@ export default function Footer() {
 
       <div className="mt-12 border-t border-border/50 py-6 text-center">
         <p className="text-muted-foreground text-sm">
-          © {new Date().getFullYear()} Yala Safari Jeep Service. All rights reserved Made with ❤ love by Pasindu Wickrmasuriya.
+          © {new Date().getFullYear()} Yala Safari Jeep Service. All rights reserved Made with ❤ love by Pasindu Wickramasuriya.
         </p>
       </div>
     </footer>
