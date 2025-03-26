@@ -108,7 +108,7 @@ export default async function Home() {
             We couldn&apos;t load the page content. Please try again later.
           </p>
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }
@@ -153,7 +153,7 @@ export default async function Home() {
       </main>
 
       {/* Footer */}
-      <Footer />
+
     </div>
   );
 }
